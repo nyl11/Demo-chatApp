@@ -10,9 +10,7 @@ It allows users to sign up, log in, and chat in real-time with join/leave notifi
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ---
 
@@ -42,9 +40,47 @@ It’s designed to demonstrate the use of **Socket.io** for real-time communicat
 
 ---
 
-## Installation
+##  Installation
 
-1. **Clone the repository**
+### 1. Clone the repository
 ```bash
-git clone https://github.com/nyl11/chat-app.git
+git clone https://github.com/your-username/chat-app.git
 cd chat-app
+```
+
+### 2. Install dependencies
+```bash
+# Frontend
+cd frontend
+npm install
+
+# Backend
+cd ../backend
+npm install
+```
+
+### 3. Configure environment variables
+
+Create a `.env` file in the **backend** folder with the following variables:
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+```
+
+### 4. Start the development servers
+```bash
+# Backend
+cd backend
+npm run dev
+
+# Frontend (in a new terminal)
+cd frontend
+npm start
+```
+
+The application should now be running:
+- **Frontend:** http://localhost:3000
+- **Backend:** http://localhost:5000
+
+---
