@@ -44,7 +44,7 @@ It’s designed to demonstrate the use of **Socket.io** for real-time communicat
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/chat-app.git
+git clone https://github.com/nyl11/Demo-chatApp.git
 cd chat-app
 ```
 
