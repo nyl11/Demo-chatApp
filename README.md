@@ -67,7 +67,10 @@ PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 ```
-
+Create a `.env` file in the **front** folder with the following variables:
+```env
+REACT_APP_BACKEND_URL=backend url
+```
 ### 4. Start the development servers
 ```bash
 # Backend
