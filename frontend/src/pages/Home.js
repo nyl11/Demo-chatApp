@@ -11,10 +11,12 @@ function Home() {
   const [message, setMessage] = useState("");
   const [typing, setTyping] = useState("");
 
-  const chatEndRef = useRef(null); // For auto-scrolling
+  const chatEndRef = useRef(null);
 
   // Listen for typing events
   useEffect(() => {
+    if (!socket) return; // Add null check
+
     socket.on("typing", (user) => {
       setTyping(user);
       setTimeout(() => setTyping(""), 1500);
@@ -31,16 +33,29 @@ function Home() {
   // Emit typing event
   const handleTyping = (e) => {
     setMessage(e.target.value);
-    socket.emit("typing");
+    if (socket) { // Add null check
+      socket.emit("typing");
+    }
   };
 
   // Send message
   const sendMessage = () => {
-    if (!message.trim()) return;
+    if (!message.trim() || !socket) return; // Add null check
 
     socket.emit("chat", { message });
     setMessage("");
   };
+
+  // Show loading state if socket is not connected
+  if (!socket) {
+    return (
+      <div className="min-h-screen flex justify-center items-center bg-gray-100">
+        <div className="text-center">
+          <p className="text-xl text-gray-600">Connecting to chat...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100 p-4">
@@ -58,7 +73,6 @@ function Home() {
         {/* Chat Window */}
         <div className="flex-1 h-96 overflow-y-auto bg-gray-50 border border-gray-300 rounded-lg p-4 mb-4 space-y-3">
           
-
           {/* Messages */}
           {chatMessages.map((msg, index) => {
             if (msg.type === "notification") {
@@ -93,6 +107,7 @@ function Home() {
               </div>
             );
           })}
+
           {/* Typing Indicator */}
           {typing && (
             <p className="text-sm italic text-gray-500">{typing} is typing...</p>
@@ -113,7 +128,7 @@ function Home() {
 
           <button
             onClick={sendMessage}
-            className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow"
+            className="px-5 py-2 bg-blue-700 hover:bg-blue-700 text-white rounded-lg shadow"
           >
             Send
           </button>
